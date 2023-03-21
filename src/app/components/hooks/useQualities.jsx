@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import qualityService from "../../services/quality.service";
-import { qualityService } from "../../../app/services/";
 
 const QualitiesContex = React.createContext();
 
@@ -11,21 +10,19 @@ export const QualitiesProvider = ({ children }) => {
   const [qualities, setQualities] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  useEffect =
-    (() => {
-      const getQualities = async () => {
-        try {
-          const { content } = await qualityService.fetchAll();
-          setQualities(content);
-          setLoading(false);
-        } catch (error) {
-          const { message } = error.response.data;
-          setError(message);
-        }
-      };
-      getQualities();
-    },
-    []);
+  const getQualities = async () => {
+    try {
+      const { content } = await qualityService.fetchAll();
+      setQualities(content);
+      setLoading(false);
+    } catch (error) {
+      const { message } = error.response.data;
+      setError(message);
+    }
+  };
+  useEffect(() => {
+    getQualities();
+  }, []);
   const getQuality = (id) => {
     return qualities.find((q) => q._id === id);
   };

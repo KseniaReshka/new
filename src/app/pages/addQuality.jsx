@@ -1,5 +1,6 @@
 import React from "react";
-import QualityForm from "./qualityForm";
+import QualityForm from "../components/ui/qualityForm";
+
 const AddQualityPage = () => {
   const handeleSubmit = (e) => {
     // e.preventDefault();
@@ -9,6 +10,7 @@ const AddQualityPage = () => {
     <>
       <h1>Add Quality</h1>
       <QualityForm onSubmit={handeleSubmit} />
+      {/* <QualityForm onSubmit={handeleSubmit} /> */}
     </>
   );
 };
