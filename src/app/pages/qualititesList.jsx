@@ -1,34 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import qualityService from "../services/quality.service";
 import QualitiesTable from "../components/ui/qualitiesTable";
+import { useQualities } from "../hooks/useQualities";
 
 const QualitiesListPage = () => {
-  const [qualitys, setQualities] = useState([]);
-  const history = useHistory();
-  useEffect(async () => {
-    qualityService.fetchAll().then((data) => {
-      console.log("data of qLISTP", data);
-      return setQualities(data.content);
-    });
-  }, []);
-  const handleEdit = (param) => {
-    console.log(param);
-    history.push(`/edit/${param}`);
-  };
-  const handleDelete = (param) => {
-    console.log(param);
-  };
-  return (
-    <>
-      <h1>Qualitites List Page</h1>
-      <QualitiesTable
-        onDelete={handleDelete}
-        onEdit={handleEdit}
-        data={qualitys}
-      />
-    </>
-  );
+    const history = useHistory();
+    const { qualities, deleteQuality } = useQualities();
+    const handleEdit = (param) => {
+        history.push(`/edit/${param}`);
+    };
+    const handleDelete = (id) => {
+        deleteQuality(id);
+    };
+    return (
+        <>
+            <h1>Qualitites List Page</h1>
+            <QualitiesTable
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+                data={qualities}
+            />
+        </>
+    );
 };
 
 export default QualitiesListPage;

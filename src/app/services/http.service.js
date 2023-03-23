@@ -1,28 +1,29 @@
 import axios from "axios";
 import logger from "./log.service";
-import {toast} from "react-toastify"
-import config from "../config.json"
+import { toast } from "react-toastify";
+import config from "../config.json";
 
-axios.defaults.baseURL= config.apiEndpoint
+axios.defaults.baseURL = config.apiEndpoint;
 
 axios.interceptors.response.use(
-  (res)=>res,
-  function (error){
-    const exectedErrors =
-    error.response &&
-    error.response.status >= 400 &&
-    error.response.status < 500;
-  if (!exectedErrors) {
-   logger.log(error)
-   toast.info("XZ")
-  }
-  return Promise.reject(error)
-}
-)
-const httpService={
-  get:axios.get,
-  post:axios.post,
-  put:axios.put,
-  drlete:axios.delete,
-}
-export default httpService
+    (res) => res,
+    function (error) {
+        const expectedErrors =
+            error.response &&
+            error.response.status >= 400 &&
+            error.response.status < 500;
+
+        if (!expectedErrors) {
+            logger.log(error);
+            toast.error("Somthing was wrong. Try it later");
+        }
+        return Promise.reject(error);
+    }
+);
+const httpService = {
+    get: axios.get,
+    post: axios.post,
+    put: axios.put,
+    delete: axios.delete,
+};
+export default httpService;

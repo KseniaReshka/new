@@ -3,10 +3,10 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Container from "./components/common/container";
 import NavBar from "./components/ui/NavBar";
 import routes from "./routes";
-import {ToastContainer} from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from "react-toastify";
+import { QualitiesProvider } from "./hooks/useQualities";
+import "react-toastify/dist/ReactToastify.css";
 
-import {QualitiesProvider} from "./components/hooks/useQualities"
 const getRoutes = (routes) => {
     return routes.map((prop, key) => {
         return <Route path={prop.path} component={prop.component} key={key} />;
@@ -18,15 +18,14 @@ function App() {
         <div className='App'>
             <NavBar routes={routes} />
             <QualitiesProvider>
-            <Container>
-                <Switch>
-                    {getRoutes(routes)}
-                    <Redirect to='/' />
-                </Switch>
-            </Container>
+                <Container>
+                    <Switch>
+                        {getRoutes(routes)}
+                        <Redirect to='/' />
+                    </Switch>
+                </Container>
             </QualitiesProvider>
-            <ToastContainer/>
-            {/* <button onClick={() => meth()}>Break the world</button>; */}
+            <ToastContainer />
         </div>
     );
 }
